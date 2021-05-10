@@ -43,6 +43,7 @@ public class SongListAdapter extends ListAdapter<Song, SongListAdapter.SongViewH
 
     static class SongViewHolder extends RecyclerView.ViewHolder {
         TextView songDetail;
+        TextView releaseDateTextview;
         ImageView thumbImage;
         Song song;
 
@@ -52,12 +53,14 @@ public class SongListAdapter extends ListAdapter<Song, SongListAdapter.SongViewH
             int year  = localDate.getYear();
             int month = localDate.getMonthValue();
             int day   = localDate.getDayOfMonth();
-            songDetail.setText("" + song.songName + "\n" + day + "/" + month +"/"+ year);
+            songDetail.setText("" + song.songName);
+            releaseDateTextview.setText("Ngày phát hành: " + day + "/" + month +"/"+ year);
         }
         public SongViewHolder(@NonNull View itemView, SongClickListener listener) {
             super(itemView);
             thumbImage =  itemView.findViewById(R.id.songThumb);
             songDetail = itemView.findViewById(R.id.songName);
+            releaseDateTextview = itemView.findViewById(R.id.releaseDateTextview);
             itemView.setOnClickListener(v -> {
                 listener.onSongClick(song);
             });

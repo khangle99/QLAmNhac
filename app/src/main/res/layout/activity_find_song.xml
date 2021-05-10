@@ -15,10 +15,12 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:gravity="center"
+            android:textStyle="bold"
+
             android:layout_height="wrap_content"
-            android:text="Song" />
+            android:text="Danh sách bài hát" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -27,25 +29,28 @@
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/songSearchView"
+                app:iconifiedByDefault="false"
+                app:queryHint="Tìm kiếm bài hát"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent" />
 
-            <Button
-                android:text="sort"
-                android:id="@+id/sortSong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+<!--            <Button-->
+<!--                android:text="sort"-->
+<!--                android:id="@+id/sortSong"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
 
-            <Button
-                android:text="filter"
-                android:id="@+id/filterSong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+<!--            <Button-->
+<!--                android:text="filter"-->
+<!--                android:id="@+id/filterSong"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/songList"
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="0dp" />

@@ -30,7 +30,7 @@ public class PerformanceListAdapter extends ListAdapter<PerformanceSongTuple, Pe
     @NonNull
     @Override
     public PerformanceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_performance, parent, false);
         return new PerformanceViewHolder(view,listener);
     }
 
@@ -41,6 +41,7 @@ public class PerformanceListAdapter extends ListAdapter<PerformanceSongTuple, Pe
 
     static class PerformanceViewHolder extends RecyclerView.ViewHolder {
         TextView songDetail;
+        TextView performaceDetail;
         ImageView thumbImage;
         PerformanceSongTuple info;
 
@@ -50,12 +51,14 @@ public class PerformanceListAdapter extends ListAdapter<PerformanceSongTuple, Pe
             int year  = localDate.getYear();
             int month = localDate.getMonthValue();
             int day   = localDate.getDayOfMonth();
-            songDetail.setText(info.songName + "\n"+ day + "/" + month +"/"+ year + "\n" + info.location);
+            songDetail.setText("Bài hát: " + info.songName);
+            performaceDetail.setText( " ⏱ Ngày " +day + "/" + month +"/"+ year + ",\n 📍 tại "  + info.location + ".");
         }
         public PerformanceViewHolder(@NonNull View itemView, PerformanceClickListener listener) {
             super(itemView);
             thumbImage =  itemView.findViewById(R.id.songThumb);
             songDetail = itemView.findViewById(R.id.songName);
+            performaceDetail = itemView.findViewById(R.id.timelocation);
             itemView.setOnClickListener(v -> {
                 listener.onPerformanceClick(info);
             });

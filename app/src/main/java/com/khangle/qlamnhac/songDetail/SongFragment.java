@@ -1,11 +1,13 @@
 package com.khangle.qlamnhac.songDetail;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
@@ -15,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -30,13 +34,14 @@ import java.util.Date;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class SongFragment extends BottomSheetDialogFragment {
     Button saveBtn;
     Button cancelBtn;
-    Button deleteBtn;
+    ImageButton deleteBtn;
     DatePicker datePicker;
     EditText nameEditText;
+    TextView releaseDateTextview;
     MusicDBDao musicDBDao;
     Song song;
     int composerId;
@@ -67,6 +72,7 @@ public class SongFragment extends BottomSheetDialogFragment {
         if (song != null) {
             loadDataIntoView(); // chi can load 1 lan k realtime
         }
+
     }
 
     private void loadDataIntoView() {
@@ -90,6 +96,7 @@ public class SongFragment extends BottomSheetDialogFragment {
         }
         return isSetName;
     }
+
 
     private void setEvent() {
         saveBtn.setOnClickListener(v -> {
@@ -121,14 +128,28 @@ public class SongFragment extends BottomSheetDialogFragment {
             dismiss();
         });
         deleteBtn.setOnClickListener(v -> {
-            musicDBDao.deleteSongById(song.songId).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe(() -> {
-                Toast.makeText(requireContext(), "Delete thanh cong", Toast.LENGTH_SHORT).show();
-                ((ComposerDetailActivity) requireActivity()).observeData();
-                dismiss();
-            });
+            Boolean isAddmode = getArguments().getBoolean("isAdd");
+            if (!isAddmode) {
+                // hien thong bao confirm
+                new AlertDialog.Builder(requireActivity())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Remove Song")
+                        .setMessage("Are you sure you want to remove this Song?")
+                        .setPositiveButton("Yes", (dialog, which) -> musicDBDao.deleteSongById(song.songId).subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread()).subscribe(() -> {
+                                    Toast.makeText(requireContext(), "Delete thanh cong", Toast.LENGTH_SHORT).show();
+                                    ((ComposerDetailActivity) requireActivity()).observeData();
+                                    dismiss();
+                                }))
+                        .setNegativeButton("No", null)
+                        .show();
+            }
 
         });
+        datePicker.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
+            releaseDateTextview.setText("Ngày " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+        });
+
     }
 
     public static Date getDateFromDatePicker(DatePicker datePicker) {
@@ -141,10 +162,14 @@ public class SongFragment extends BottomSheetDialogFragment {
     }
 
     private void setControl() {
+
         saveBtn = getView().findViewById(R.id.SaveSong);
+        releaseDateTextview = getView().findViewById(R.id.dateTextviewSong);
         cancelBtn = getView().findViewById(R.id.CancelSong);
         deleteBtn = getView().findViewById(R.id.deleteSong);
         datePicker = getView().findViewById(R.id.releaseDate);
         nameEditText = getView().findViewById(R.id.songNameEditText);
+        Boolean isAddmode = getArguments().getBoolean("isAdd");
+        deleteBtn.setEnabled(!isAddmode);
     }
 }

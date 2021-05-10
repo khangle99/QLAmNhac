@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".report.ReportSingerPerformancePerMonthActivity">
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <TextView
+           android:gravity="center"
+           android:text="Thống kê biểu diễn ca sĩ"
+           android:textSize="30sp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+       <TextView
+           android:id="@+id/singerNameReport"
+           android:gravity="center"
+           tools:text="Singer name"
+           android:textStyle="bold"
+           android:textSize="30sp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+       <com.github.mikephil.charting.charts.BarChart
+           android:id="@+id/chartReport"
+           android:layout_width="match_parent"
+           android:layout_height="300dp"/>
+       <TextView
+           android:gravity="center"
+           android:text="Danh sách bài hát"
+           android:textSize="30sp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/performList"
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:nestedScrollingEnabled="false"
+           android:layout_height="wrap_content"/>
+   </LinearLayout>
+</ScrollView>

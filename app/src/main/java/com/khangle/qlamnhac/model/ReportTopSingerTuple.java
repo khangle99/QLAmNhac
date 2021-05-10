@@ -7,6 +7,7 @@ public class ReportTopSingerTuple implements Parcelable {
     public int time;
     public int singerId;
     public String name;
+    public String uriString;
 
     public ReportTopSingerTuple() {}
 
@@ -14,6 +15,7 @@ public class ReportTopSingerTuple implements Parcelable {
         time = in.readInt();
         singerId = in.readInt();
         name = in.readString();
+        uriString = in.readString();
     }
 
     @Override
@@ -21,6 +23,7 @@ public class ReportTopSingerTuple implements Parcelable {
         dest.writeInt(time);
         dest.writeInt(singerId);
         dest.writeString(name);
+        dest.writeString(uriString);
     }
 
     @Override

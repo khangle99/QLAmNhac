@@ -1,6 +1,8 @@
 package com.khangle.qlamnhac.report;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -13,36 +15,45 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.renderer.YAxisRenderer;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.khangle.qlamnhac.R;
 import com.khangle.qlamnhac.model.ReportTopSingerTuple;
+import com.khangle.qlamnhac.model.Singer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReportSingerTopActivity extends AppCompatActivity {
     List<BarEntry> entries = new ArrayList<>();
-    ArrayList<ReportTopSingerTuple> array;
+    ArrayList<ReportTopSingerTuple> tupleArrayList;
     BarChart chart;
     TextView header;
-
-
+    SingerWithTimesListAdapter adapter;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_singer_top);
         setControl();
         setupChart();
+        setUpRecycleview();
     }
+
+    private void setUpRecycleview() {
+        adapter = new SingerWithTimesListAdapter();
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        adapter.submitList(tupleArrayList);
+    }
+
     ArrayList<String> singerNames = new ArrayList<>();
     private void setupChart() {
-        array = getIntent().getExtras().getParcelableArrayList("chart");
+        tupleArrayList = getIntent().getExtras().getParcelableArrayList("chart");
 
-        for (int i = 0; i < array.size(); i++) {
-            entries.add(new BarEntry(i, array.get(i).time));
-            singerNames.add(array.get(i).name);
+        for (int i = 0; i < tupleArrayList.size(); i++) {
+            entries.add(new BarEntry(i, tupleArrayList.get(i).time));
+            singerNames.add(tupleArrayList.get(i).name);
         }
 
         ValueFormatter formatter = new ValueFormatter() {
@@ -54,6 +65,7 @@ public class ReportSingerTopActivity extends AppCompatActivity {
         Description description = chart.getDescription();
         description.setEnabled(false);
         BarDataSet set = new BarDataSet(entries, "Số lần biểu diễn trong năm");
+        set.setColors(ColorTemplate.VORDIPLOM_COLORS);
         BarData data = new BarData(set);
         data.setBarWidth(0.9f); // set custom bar width
         chart.setData(data);
@@ -74,5 +86,7 @@ public class ReportSingerTopActivity extends AppCompatActivity {
         header = findViewById(R.id.reportTitle);
         int year = getIntent().getExtras().getInt("year");
         header.setText("Danh sách top 5 ca sĩ biểu diễn nhiều nhất trong năm: " + year);
+        recyclerView = findViewById(R.id.singerList1);
+
     }
 }

@@ -39,7 +39,7 @@ public class ComposerAdapter extends ListAdapter<Composer, ComposerAdapter.Compo
         Composer composer;
         public ComposerViewHolder(@NonNull View itemView, ComposerClickListener listener) {
             super(itemView);
-            avartar = itemView.findViewById(R.id.composerAvatar);
+//            avartar = itemView.findViewById(R.id.composerAvatar);
             nameTV =itemView.findViewById(R.id.composerName);
             itemView.setOnClickListener(v -> {
                 listener.onClick(composer);

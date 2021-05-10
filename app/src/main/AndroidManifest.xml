@@ -9,26 +9,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QLAmNhac">
-        <activity android:name=".report.ReportAllActivity" android:label="Reports All"/>
-        <activity android:name=".report.ReportSingerTopActivity" android:label="Top Singer Report" />
-        <activity android:name=".PerformanceDetail.FindSongActivity" android:label="Find Song"/>
-        <activity android:name=".singer.SingerDetailActivity" android:label="Singer Detail"/>
-        <activity android:name=".PerformanceDetail.PerformanceDetailActivity" android:label="Performance Detail"/>
-        <activity android:name=".composer.ComposerDetailActivity" android:label="Composer Detail"/>
+        <activity android:name=".report.ReportSingerPerformancePerMonthActivity" android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
+        <activity
+            android:name=".report.ReportSingerTopActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:label="Top Singer Report" />
+        <activity
+            android:name=".PerformanceDetail.FindSongActivity"
+            android:label="Find Song" />
+        <activity
+            android:name=".singer.SingerDetailActivity"
+            android:label="Singer Detail" />
+        <activity
+            android:name=".PerformanceDetail.PerformanceDetailActivity"
+            android:label="Performance Detail" />
+        <activity
+            android:name=".composer.ComposerDetailActivity"
+            android:label="Composer Detail" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
         <activity
-            android:name=".ReportActivity"
+            android:name=".report.ReportActivity"
             android:label="@string/title_activity_report" />
         <activity
             android:name=".singer.SingerActivity"
-            android:label="@string/title_activity_singer" />
+            android:label="Ca sĩ" />
         <activity
             android:name=".composer.ComposerActivity"
-            android:label="@string/title_activity_composer" />
-        <activity android:name=".MainActivity" android:label="Music Management">
+            android:label="Nhạc sĩ" />
+        <activity
+            android:name=".MainActivity"
+            android:label="Music Management"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

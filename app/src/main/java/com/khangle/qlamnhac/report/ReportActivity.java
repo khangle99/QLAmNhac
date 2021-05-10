@@ -1,20 +1,16 @@
-package com.khangle.qlamnhac;
+package com.khangle.qlamnhac.report;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.khangle.qlamnhac.R;
 import com.khangle.qlamnhac.data.db.MusicDBDao;
 import com.khangle.qlamnhac.data.db.MusicManagerDatabase;
 import com.khangle.qlamnhac.model.ReportTopSingerTuple;
-import com.khangle.qlamnhac.report.ReportSingerTopActivity;
 import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import java.util.ArrayList;
@@ -24,7 +20,7 @@ import java.util.Date;
 public class ReportActivity extends AppCompatActivity {
     MusicDBDao musicDBDao;
     Button selectYearBtn;
-
+    Button selectSingerAndYearBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +32,15 @@ public class ReportActivity extends AppCompatActivity {
 
     private void setControl() {
         selectYearBtn = findViewById(R.id.selectYear);
-
+        selectSingerAndYearBtn = findViewById(R.id.performPerMonth);
     }
 
     private void setEvent() {
         selectYearBtn.setOnClickListener(v -> {
             showYearPicker();
+        });
+        selectSingerAndYearBtn.setOnClickListener(v -> {
+           new SingerAndYearSelectFragment().show(getSupportFragmentManager(),"pickSingerAndYear");
         });
     }
 

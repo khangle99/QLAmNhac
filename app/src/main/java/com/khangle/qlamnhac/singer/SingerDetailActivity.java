@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
 import com.khangle.qlamnhac.PerformanceDetail.PerformanceDetailActivity;
 import com.khangle.qlamnhac.R;
 import com.khangle.qlamnhac.data.db.MusicDBDao;
@@ -55,7 +56,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SingerDetailActivity extends AppCompatActivity {
     MusicDBDao musicDBDao;
     EditText nameEditText;
-    Button addPerformanceBtn;
+    Chip addPerformanceBtn;
     UseState state;
     Singer singer;
     List<PerformanceSongTuple> performanceSongTuples;
@@ -111,6 +112,10 @@ public class SingerDetailActivity extends AppCompatActivity {
         changeState(state);
 
         setupSongListRecycle();
+
+        if (imageUri.equals("")) {
+            singerAvartar.setImageResource(R.drawable.ic_baseline_image_search_24);
+        }
 
     }
 
@@ -215,7 +220,7 @@ public class SingerDetailActivity extends AppCompatActivity {
         super.onResume();
         observeData();
         adapter.notifyDataSetChanged();
-        if (imageUri != null) {
+        if (!imageUri.equals("")) {
             singerAvartar.setImageDrawable(null);
             singerAvartar.setImageURI(Uri.parse(imageUri));
         }
@@ -260,14 +265,6 @@ public class SingerDetailActivity extends AppCompatActivity {
         });
     }
 
-    private List<PerformanceInfo> cloneSongList(List<PerformanceInfo> source) {
-        ArrayList<PerformanceInfo> des = new ArrayList<>();
-        for (PerformanceInfo s : source) {
-            des.add(new PerformanceInfo(s));
-        }
-        return des;
-    }
-
 
     private void setupDatabase() {
         musicDBDao = Room.databaseBuilder(getApplicationContext(),
@@ -307,6 +304,7 @@ public class SingerDetailActivity extends AppCompatActivity {
                     String name = nameEditText.getText().toString();
                     if (state == UseState.ADD) {
                         singer.name = name;
+                        singer.uriString = imageUri;
                         musicDBDao.updateSinger(singer).subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread()).subscribe(() -> {
                             Toast.makeText(getBaseContext(), "Insert thanh cong", Toast.LENGTH_SHORT).show();

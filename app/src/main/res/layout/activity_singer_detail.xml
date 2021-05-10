@@ -2,59 +2,127 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@mipmap/bkg1"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".singer.SingerDetailActivity">
     <LinearLayout
+
+        android:clipChildren="false"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:clickable="true"
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="30sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Thông tin chi tiết"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Ảnh đại diện"/>-->
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"/>-->
+    <RelativeLayout
+        android:clipChildren="false"
+        android:background="@color/white"
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="-90dp"
+            android:layout_width="250dp"
+            card_view:cardCornerRadius="20dp"
+            card_view:elevation="10dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:id="@+id/singerDetailAvartar"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:focusable="true" />
-        <EditText
-            android:id="@+id/singerDetailName"
-            android:inputType="text"
-            android:hint="Singer Name"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="250dp">
+            <ImageView
+                android:clickable="true"
+                android:id="@+id/singerDetailAvartar"
+                android:layout_width="match_parent"
+                android:scaleType="fitXY"
+                android:background="@drawable/border_image"
+                android:cropToPadding="true"
+                android:padding="10dp"
+                android:layout_height="match_parent"
+                android:focusable="true" />
+        </androidx.cardview.widget.CardView>
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/main"
+            android:layout_marginTop="200dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Danh sách biểu diễn"/>
-            <Button
-                android:id="@+id/addSingerPerformance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add"/>
-            <Button
-                android:id="@+id/searchCSingerPerformance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Search"/>
-            <Button
-                android:id="@+id/sortSingerPerformance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sort"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="30sp"
+                    android:layout_marginStart="10dp"
+                    android:text="Tên:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/singerDetailName"
+                    android:inputType="text"
+                    android:layout_marginStart="10dp"
+                    android:hint="Singer Name"
+                    android:textSize="30sp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:textSize="19sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lịch biểu diễn: "/>
+                <com.google.android.material.chip.Chip
+                    android:layout_marginEnd="10dp"
+                    android:id="@+id/addSingerPerformance"
+                    android:backgroundTint="@color/purple_700"
+                    android:textColor="@color/white"
+                    android:text="Thêm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <!--            <Button-->
+                <!--                android:id="@+id/searchCSingerPerformance"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="Search"/>-->
+                <!--            <Button-->
+                <!--                android:id="@+id/sortSingerPerformance"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="Sort"/>-->
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_margin="20dp"
+                android:id="@+id/singerPerformanceList"
+                android:layout_width="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/singerPerformanceList"
-            android:layout_width="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
     </LinearLayout>
 
 </ScrollView>

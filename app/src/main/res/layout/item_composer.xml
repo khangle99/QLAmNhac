@@ -13,18 +13,19 @@
         android:orientation="horizontal"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/composerAvatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"/>
+        android:layout_height="80dp">
+<!--        <ImageView-->
+<!--            android:id="@+id/composerAvatar"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"/>-->
         <TextView
             android:id="@+id/composerName"
             android:layout_margin="10dp"
             android:layout_width="0dp"
+            android:gravity="center_vertical"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="20sp"
             tools:text="Sample"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

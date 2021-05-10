@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<LinearLayout
     android:foreground="?android:attr/selectableItemBackground"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,14 +16,31 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/songThumb"
-            android:layout_width="80dp"
-            android:layout_height="80dp"/>
-        <TextView
-            android:id="@+id/songName"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:src="@drawable/ic_cd"
+            android:layout_height="60dp"/>
+        <LinearLayout
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
-            android:textSize="18sp"
-            tools:text="Sample"/>
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/songName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textSize="20sp"
+                tools:text="Sample"/>
+            <TextView
+                android:gravity="end"
+                android:layout_marginStart="16dp"
+                android:textStyle="italic"
+                android:id="@+id/releaseDateTextview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                tools:text="Sample"/>
+        </LinearLayout>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</LinearLayout>

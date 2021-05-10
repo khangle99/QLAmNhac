@@ -3,6 +3,7 @@ package com.khangle.qlamnhac.singer;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -25,16 +26,24 @@ public class SingerActivity extends AppCompatActivity {
     SingerListAdapter adapter;
     RecyclerView singerRecycle;
     SearchView searchView;
+    Boolean isSelectSinger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_singer);
         setControl();
         setEvent();
         setupDatabase();
         setupRecycleview();
         observeData();
+        isSelectSinger = getIntent().getBooleanExtra("selectSinger", false);
+        if (isSelectSinger) {
+            setResult(RESULT_CANCELED); // init state
+            // hide add new singer
+            fab.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -53,12 +62,20 @@ public class SingerActivity extends AppCompatActivity {
 
     private void setupRecycleview() {
         adapter = new SingerListAdapter(singer -> {
-            Intent intent = new Intent(this, SingerDetailActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("detail_flag", "view");
-            bundle.putInt("singerId", singer.id);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            if (isSelectSinger) { // set
+                Intent data = new Intent();
+                data.putExtra("singerName",singer.name);
+                data.putExtra("singerId",singer.id);
+                setResult(RESULT_OK,data);
+                finish();
+            } else {
+                Intent intent = new Intent(this, SingerDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("detail_flag", "view");
+                bundle.putInt("singerId", singer.id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
         });
         singerRecycle.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         singerRecycle.setAdapter(adapter);

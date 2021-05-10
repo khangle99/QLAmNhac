@@ -1,16 +1,19 @@
 package com.khangle.qlamnhac.PerformanceDetail;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -34,13 +37,14 @@ import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class PerformanceDetailActivity extends AppCompatActivity {
     MusicDBDao musicDBDao;
     Button selectSongBtn;
     DatePicker startDatePicker;
     EditText locationEditText;
     TextView singerNameTextView;
+    TextView dateStringTextView;
     TextView songNameTextView;
     UseState state;
     PerformanceInfo info; // add,update,delete
@@ -55,8 +59,6 @@ public class PerformanceDetailActivity extends AppCompatActivity {
         setupDatabase();
         setControl();
         setEvent();
-
-
     }
 
     private void setControl() {
@@ -65,6 +67,7 @@ public class PerformanceDetailActivity extends AppCompatActivity {
         locationEditText = findViewById(R.id.locationTextview);
         songNameTextView = findViewById(R.id.songNameTextview);
         singerNameTextView = findViewById(R.id.singerPerformName);
+        dateStringTextView = findViewById(R.id.dateTextview);
         final String flag = getIntent().getExtras().getString("detail_flag");
         UseState state = UseState.VIEW;
         int id = 0;
@@ -92,6 +95,7 @@ public class PerformanceDetailActivity extends AppCompatActivity {
                     locationEditText.setText(info.location);
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(info.date);
+                    dateStringTextView.setText("Ngày " + cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH)+1)  + "/" + cal.get(Calendar.YEAR));
                     startDatePicker.updateDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                 }
             });
@@ -117,18 +121,18 @@ public class PerformanceDetailActivity extends AppCompatActivity {
             case ADD:
                 locationEditText.setEnabled(true);
                 startDatePicker.setEnabled(true);
-                selectSongBtn.setEnabled(true);
+                selectSongBtn.setVisibility(View.VISIBLE);
                 break;
             case EDIT:
                 locationEditText.setEnabled(true);
                 startDatePicker.setEnabled(true);
-                selectSongBtn.setEnabled(false);
+                selectSongBtn.setVisibility(View.GONE);
                 break;
             case VIEW:
                 setDataToView();
                 locationEditText.setEnabled(false);
                 startDatePicker.setEnabled(false);
-                selectSongBtn.setEnabled(false);
+                selectSongBtn.setVisibility(View.GONE);
                 break;
         }
     }
@@ -136,16 +140,10 @@ public class PerformanceDetailActivity extends AppCompatActivity {
     public void setDataToView() {
         // chua update location, date
 
+
         songNameTextView.setText(this.songName);
     }
 
-    private List<Song> cloneSongList(List<Song> source) {
-        ArrayList<Song> des = new ArrayList<>();
-        for (Song s : source) {
-            des.add(new Song(s));
-        }
-        return des;
-    }
 
     public static Date getDateFromDatePicker(DatePicker datePicker) {
         int day = datePicker.getDayOfMonth();
@@ -274,13 +272,18 @@ public class PerformanceDetailActivity extends AppCompatActivity {
         }
     }
 
+
     private void setEvent() {
         selectSongBtn.setOnClickListener(v -> {
             // start activity for result
             Intent intent = new Intent(this, FindSongActivity.class);
             startActivityForResult(intent, 99);
         });
+        startDatePicker.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
+            dateStringTextView.setText("Ngày " + dayOfMonth + "/" + (monthOfYear+1)  + "/" + year);
+        });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

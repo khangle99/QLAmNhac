@@ -20,25 +20,29 @@
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/singerSearchView"
+                android:elevation="10dp"
+                app:iconifiedByDefault="false"
+                app:queryHint="Tìm kiếm ca sĩ"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent" />
 
-            <Button
-                android:text="sort"
-                android:id="@+id/sortSinger"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+<!--            <Button-->
+<!--                android:text="sort"-->
+<!--                android:id="@+id/sortSinger"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
 
-            <Button
-                android:text="filterSinger"
-                android:id="@+id/filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+<!--            <Button-->
+<!--                android:text="filterSinger"-->
+<!--                android:id="@+id/filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/singerList"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="0dp" />
@@ -48,7 +52,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_add_24"
+        android:backgroundTint="@color/purple_700"
         app:layout_anchorGravity="bottom|end"
+        app:tint="@color/white"
         android:layout_margin="20dp"
         app:layout_anchor="@id/container"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -108,11 +109,16 @@ public class ComposerDetailActivity extends AppCompatActivity {
             SongFragment songFragment = new SongFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelable("song", song);
+            bundle.putBoolean("isAdd", false);
             songFragment.setArguments(bundle);
             songFragment.show(getSupportFragmentManager(), "");
         });
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         songList.setAdapter(adapter);
-        songList.setLayoutManager(new LinearLayoutManager(this));
+        songList.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(songList.getContext(),
+                layoutManager.getOrientation());
+        songList.addItemDecoration(dividerItemDecoration);
     }
 
     private void invalidateView() {
@@ -157,6 +163,7 @@ public class ComposerDetailActivity extends AppCompatActivity {
             SongFragment songFragment = new SongFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("composerId", composerWithSongs.composer.id);
+            bundle.putBoolean("isAdd", true);
             songFragment.setArguments(bundle);
             songFragment.show(getSupportFragmentManager(), "");
         });

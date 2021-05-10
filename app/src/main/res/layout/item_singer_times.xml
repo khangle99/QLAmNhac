@@ -16,14 +16,22 @@
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/singerAvatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"/>
         <TextView
             android:layout_margin="10dp"
             android:id="@+id/singerName"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            tools:text="Sample"/>
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/times"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="18sp"
             tools:text="Sample"/>

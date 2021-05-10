@@ -6,26 +6,30 @@
     android:clickable="true"
     android:layout_margin="10dp"
     card_view:cardCornerRadius="10dp"
-    card_view:cardElevation="20dp"
+    card_view:cardElevation="10dp"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/singerAvatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+        android:layout_height="80dp">
+
         <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/singerName"
+            android:id="@+id/songName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:textSize="20sp"
+            tools:text="Sample"/>
+        <TextView
+            android:textStyle="italic"
+            android:id="@+id/timelocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:textSize="18sp"
+            android:gravity="end"
             tools:text="Sample"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

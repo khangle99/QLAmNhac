@@ -110,7 +110,7 @@ public interface MusicDBDao {
 
     // truy van top ca si hat nhieu trong nam dc chon
 
-    @Query("SELECT singerId, name, COUNT(singer.id) AS  time " +
+    @Query("SELECT singerId, name, uriString, COUNT(singer.id) AS  time " +
             "FROM performanceinfo INNER JOIN singer ON performanceinfo.singerId = singer.id " +
             "WHERE date BETWEEN :from AND :to " +
             "GROUP BY singerId " +
@@ -118,6 +118,10 @@ public interface MusicDBDao {
             "LIMIT 5")
     LiveData<List<ReportTopSingerTuple>> getMostPerformanceSinger(Long from, Long to);
 
-    // truy van all db
+    // truy van bieu dien theo thang cua 1 ca si
+    @Query("SELECT id, date, location, songName " +
+            "FROM performanceinfo INNER JOIN song ON performanceinfo.songID = song.songId " +
+            "WHERE performanceinfo.singerId = :singerId AND date BETWEEN :from AND :to ")
+    LiveData<List<PerformanceSongTuple>> getPerformSongTupleBySingerIdAndYear(int singerId, Long from, Long to);
 
 }
