@@ -14,10 +14,12 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="80dp">
-<!--        <ImageView-->
-<!--            android:id="@+id/composerAvatar"-->
-<!--            android:layout_width="80dp"-->
-<!--            android:layout_height="80dp"/>-->
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/composerAvatar"
+            android:layout_width="60dp"
+            android:src="@drawable/ic_songwriter"
+            android:layout_height="60dp"/>
         <TextView
             android:id="@+id/composerName"
             android:layout_margin="10dp"
