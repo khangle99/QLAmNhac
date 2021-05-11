@@ -1,9 +1,11 @@
 package com.khangle.qlamnhac.report;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -22,8 +24,10 @@ import com.khangle.qlamnhac.model.ReportTopSingerTuple;
 import com.khangle.qlamnhac.model.Singer;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class ReportSingerTopActivity extends AppCompatActivity {
     List<BarEntry> entries = new ArrayList<>();
     ArrayList<ReportTopSingerTuple> tupleArrayList;
@@ -40,10 +44,12 @@ public class ReportSingerTopActivity extends AppCompatActivity {
         setUpRecycleview();
     }
 
+
     private void setUpRecycleview() {
         adapter = new SingerWithTimesListAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        Collections.sort(tupleArrayList, (h1, h2) -> h2.time - h1.time);
         adapter.submitList(tupleArrayList);
     }
 

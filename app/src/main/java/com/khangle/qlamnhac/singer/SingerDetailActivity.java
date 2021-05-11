@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -253,14 +254,11 @@ public class SingerDetailActivity extends AppCompatActivity {
                 if (singer.uriString != null && !singer.uriString.equals("")) {
                     singerAvartar.setImageURI(Uri.parse(singer.uriString));
                 }
-
-            }
-        });
-        musicDBDao.getPerformSongTupleBySingerId(singerId).observe(this, performanceSongTuples -> {
-            if (singer != null) {
-                this.performanceSongTuples = performanceSongTuples;
-                adapter.submitList(Collections.emptyList());
-                adapter.submitList(performanceSongTuples);
+                musicDBDao.getPerformSongTupleBySingerId(singerId).observe(this, performanceSongTuples -> {
+                        this.performanceSongTuples = performanceSongTuples;
+                        adapter.submitList(Collections.emptyList());
+                        adapter.submitList(performanceSongTuples);
+                });
             }
         });
     }
